@@ -1,0 +1,41 @@
+{
+  "pages": [   
+    
+    "pages/search/index",
+    "pages/infor/index",
+    "pages/my/index",
+    "pages/operationIntro/index",
+  
+   
+   "dist/tabbar"
+  ],
+  "window": {
+    "backgroundTextStyle": "white",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "E.M.S.",
+    "navigationBarBackgroundColor": "#3b5999",
+    "backgroundColor": "#fff",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#2c2c2c",
+    "selectedColor": "#fff",
+    "borderStyle": "white",
+    "backgroundColor": "#3b5999",
+    "list": [
+      {
+        "pagePath": "pages/search/index",
+        "iconPath": "image/index.png",
+        "selectedIconPath": "image/index_active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "image/my.png",
+        "selectedIconPath": "image/my_active.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "debug": true
+}

@@ -1,0 +1,151 @@
+<!--查询输入-->
+<view class="search_block" wx:if="{{searchShow}}">
+    <view class="search_item">
+        <text>快递单号后四位：</text>
+        <input value="{{orderNo1}}" bindinput="changeOrderNo1" maxlength='1' type='number' focus="{{orderNofocus1}}"/>
+        <input value="{{orderNo2}}"  bindinput="changeOrderNo2" maxlength='1' type='number' focus="{{orderNofocus2}}"/>
+        <input value="{{orderNo3}}"  bindinput="changeOrderNo3" maxlength='1' type='number' focus="{{orderNofocus3}}"/>
+        <input value="{{orderNo4}}"  bindinput="changeOrderNo4" maxlength='1' type='number' focus="{{orderNofocus4}}"/>
+        <view class="clearInput" bindtap="clearOrderNo"><image src="../../image/close.png"></image></view>
+    </view>
+    <view class="search_item">
+        <text>机器编号后四位：</text>
+        <input value="{{machineNo1}}" bindinput="changeMachineNo1"  maxlength='1' type='text' focus="{{machineNofocus1}}"/>
+        <input type='text' value="{{machineNo2}}" bindinput="changeMachineNo2"  maxlength='1'  focus="{{machineNofocus2}}"/>
+        <input type='text' value="{{machineNo3}}" bindinput="changeMachineNo3"  maxlength='1'  focus="{{machineNofocus3}}" />
+        <input type='text' value="{{machineNo4}}" bindinput="changeMachineNo4"  maxlength='1'  focus="{{machineNofocus4}}" />
+        <view class="clearInput" bindtap="clearMachineNo"><image src="../../image/close.png"></image></view>
+    </view>
+    <view class="search_icon" bindtap="toSearch">
+        <text>查询</text>
+        <view class="searchIcon">
+            <image src="../../image/search.png"></image>
+        </view>
+    </view>
+</view>
+
+
+<!--查询无结果-->
+<view wx:if="{{hasResult==0}}" class="InfoNull" style="position:relative;top:400rpx;">
+    <image src="../../image/orderNull.png" />
+    <text>目前没有发现此单信息。请检查快递单号和机器编号，并在快递确认已签收24小时后，再次查询或人工查询，谢谢！</text>
+</view>
+
+<!--查询信息-->
+<scroll-view scroll-y wx:elif="{{hasResult==1}}" style="height: 700px;position:relative;top:400rpx;" scroll-top="0px">
+    <!--orderdetail-->
+    <view class="detail_block">
+        <text class="infoTitle">信息跟踪</text>
+        <text class="userName">客户名称：{{orderInfor[4]}}</text>
+        <text class="userName">服务单号：{{orderInfor[6]}}</text>
+        <text class="userName">产品型号：{{orderInfor[7]}}</text>
+    </view>
+    <!--track-->
+    <view class="track_detail">
+        <!--发票信息-->
+        <view class="column_block" wx:if="{{orderInfor[0]=='保外收费'}}">
+            <text class="tit">发票信息</text>
+            <image class="car_icon" src="../../image/invoice.png"></image>
+        </view>
+        <view class="invoice_item" wx:if="{{orderInfor[0]=='保外收费'}}">
+            <text>{{orderInfor[2]}}</text>
+        </view>
+
+        <!--状态跟踪-->
+        <view class="column_block">
+            <text class="tit">状态跟踪</text>
+            <image class="car_icon" src="../../image/car.png"></image>
+        </view>
+
+        <!--节点4-->         
+        <view class="track_item" wx:if="{{orderInfor[3][0].fdate4}}">
+            <view class="track_time">
+                <text class="txt">{{orderInfor[3][0].fdate4}}</text>
+            </view>
+            <view class="track_states" bindtap="goReport">
+                <view class="txt" wx:if="{{orderInfor[1]=='中铁'}}">
+                  <text>已经中铁快运发货，具体发货跟踪信息请致电中铁客服电话：021-50318830，并告知中铁客服发货时间，接收方地址，接收人信息。谢谢！ </text>
+                <text style="color:blue">点击查看服务报告>></text>
+                </view>
+                <view class="txt" wx:else>
+                  <text class="blackColor"  style="color:#000">已发货，顺丰,单号{{orderInfor[1]}}。</text>
+                  <text class="blueColor" style="color:blue">点击查看服务报告>></text>
+                </view>
+                <!--<text class="txt" wx:if="{{orderInfor[1]=='中铁'}}">已经中铁快运发货，具体发货跟踪信息请致电中铁客服电话：021-50318830，并告知中铁客服发货时间，接收方地址，接收人信息。谢谢！ 点击查看服务报告>></text>
+                <text class="txt" wx:else>已发货，顺丰,单号{{orderInfor[1]}}。 点击查看服务报告>></text>-->
+                
+            </view>
+        </view>
+                
+        <!--节点3--> 
+        <view class="track_item" wx:if="{{orderInfor[3][0].fdate3}}">
+            <view class="track_time">
+                <text>{{orderInfor[3][0].fdate3}}</text>
+            </view>
+            <view class="track_states">
+                <text wx:if="{{orderInfor[0]=='保修待定'}}">保修单据已补齐，待处理。</text>
+                <text wx:else>已收款，待发货。</text>
+            </view>
+        </view> 
+
+        <!--节点2-->    
+        <view class="track_item" wx:if="{{orderInfor[3][0].fdate2}}">
+            <view class="track_time">
+                <text>{{orderInfor[3][0].fdate2}}</text>
+            </view>
+            <view class="track_states">
+                <text wx:if="{{orderInfor[0]=='保修待定'}}">保修单据不全，等待补齐。</text>
+                <text wx:else>已报价，待回复。</text>
+            </view>
+        </view> 
+                
+        <!--节点1-->
+        <view class="track_item" wx:if="{{orderInfor[3][0].fdate1}}">
+            <view class="track_time">
+                <text>{{orderInfor[3][0].fdate1}}</text>
+            </view>
+            <view class="track_states">
+                <text wx:if="{{orderInfor[0]=='保修待定'}}">已签收。</text>
+                <text wx:elif="{{orderInfor[0]=='无配件'}}">已签收，具体维修情况致电021-33632323*815查询，谢谢！</text>
+                <text wx:elif="{{orderInfor[0]=='无法联系客户'}}">请尽快致电021-33632323*815，提供您的联系信息，以便为您提供售后维修服务，谢谢！</text>
+                <text wx:elif="{{orderInfor[0]=='客户无回复'}}">我们已经电子邮件给您“售后服务信息表”，等待您的电子邮件回复，谢谢！</text>
+                <text wx:else>已签收，待处理。</text>
+            </view>
+        </view> 
+
+    </view>
+    <!--//实时跟踪-->
+<!--</view>-->
+</scroll-view>
+
+<!--重复-->
+<view wx:elif="{{hasResult==2}}" class="InfoNull" style="position:relative;top:400rpx;">
+    <image src="../../image/error.png" />
+    <text>请确认输入的快递单号和机器编号，若有问题可拨打021-33632323*815进行人工查询，谢谢！</text>
+</view>
+
+<!--超过3个月-->
+<view wx:elif="{{hasResult==3}}" class="InfoNull" style="position:relative;top:400rpx;">
+    <image src="../../image/error.png" />
+    <text>对不起，此单已经超过3个月！</text>
+</view>
+
+<!--欢迎-->
+<view wx:else class="initialBlock" style="position:relative;top:400rpx;">
+    <text>欢迎使用E.M.S.售后查询！</text>
+</view>
+
+<!--tips-->
+<view wx:if="{{attention!=''}}" class="tips">
+  <text >{{attention}}</text>
+  <!-- <text  wx:if="{{orderInfor[8]}}">{{orderInfor[8]}}</text>
+  <text  wx:if="{{!orderInfor[8]}}">保修期内，三要素完整有效，5个工作日完成。保修期外，5个工作日检修回应。(故400600障产品，信息表，报修凭证)</text> -->
+</view>
+<!--loading-->
+<loading hidden="{{loadingHidden}}">
+  加载中...
+</loading>
+
+
+                
+                

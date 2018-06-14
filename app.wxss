@@ -1,0 +1,5 @@
+/**app.wxss**/
+page{font-family:"Microsoft Yahei",Heiti,arial,helvetica,Helvetica,Verdana,sans-serif!important;}
+text, input{
+    font-size: 30rpx;
+}

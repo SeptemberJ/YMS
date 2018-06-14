@@ -1,0 +1,84 @@
+<view class="contain">
+
+  <view class="topLine">
+    <image src="../../image/EMS.png"></image>
+  </view>
+
+  <view class="topInfo">
+    <text>医迈斯电子医疗系统贸易（上海）有限公司技术服务中心</text>
+    <text>E.M.S. Electro Medical System Trading（shanghai）Co.Ltd. Technical Service Center</text>
+    <text>上海市浦东南路359号金穗大厦24A 邮编：200120</text>
+    <text>24A,Jin Sui Mansion</text>
+    <text>N 379 Pudong Nan FD. Shanghai</text>
+    <text>China 200120</text>
+  </view>
+
+  <view class="technologyReport">
+    <view class="redLine">
+      <text>Technical Service Report技术服务报告</text>
+    </view>
+    <view class="grayLine"></view>
+
+    <view class="formInfo">
+      <view class="formItem">
+        <text class="columTit">Ref .#.报告编号:</text>
+        <text class="content">{{reportInfo.FBillNo?reportInfo.FBillNo:'/'}}</text>
+      </view>
+      <view class="formItem">
+        <text class="columTit">Date 日期:</text>
+        <text class="content">{{reportInfo.Date?reportInfo.Date:'/'}}</text>
+      </view>
+      <view class="formItem">
+        <text class="columTit">Customer 客户:</text>
+        <text class="content">{{reportInfo.cust?reportInfo.cust:'/'}}</text>
+      </view>
+      <view class="formItem">
+        <text class="columTit">Device 设备名称:</text>
+        <text class="content">{{reportInfo.dev?reportInfo.dev:'/'}}</text>
+      </view>
+      <view class="formItem">
+        <text class="columTit">E/N# 设备编号:</text>
+        <text class="content">{{reportInfo.SN?reportInfo.SN:'/'}}</text>
+      </view>
+      <view class="formItem">
+        <text class="columTit">Engineer 工程师:</text>
+        <text class="content">{{reportInfo.En?reportInfo.En:'/'}}</text>
+      </view>
+    </view>
+
+     <view class="redLine">
+    </view>
+  </view>
+
+  <view class="midLine">
+    <text class="Fbold">Defect description by the customer 客户故障描述:</text>
+    <text>{{reportInfo.def?reportInfo.def:'/'}}</text>
+  </view>
+
+  <view class="midLine">
+    <text class="Fbold">Analysis made by EMS service  维修诊断:</text>
+    <text>{{reportInfo.ana?reportInfo.ana:'/'}}</text>
+  </view>
+
+  <view class="midLine">
+    <text class="Fbold">List of changed parts 维修所用配件:</text>
+    <view class="formBlock">
+      <view class="formBlock_item">
+        <text class="ItemCode center">Items</text>
+        <text class="Ref center">Ref</text>
+        <text class="Descript center">Description</text>
+      </view>
+      <view class="formBlock_item" wx:for="{{reportInfo.list}}">
+        <text class="itemCode" style="border:0px solid #ccc;">{{index+1}}</text>
+        <text class="ref">{{item.Ref?item.Ref:'/'}}</text>
+        <text class="descript">{{item.dev?item.dev:'/'}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<!--loading-->
+<loading hidden="{{loadingHidden}}">
+  加载中...
+</loading>

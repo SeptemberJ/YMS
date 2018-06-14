@@ -1,0 +1,20 @@
+<view class="operationIntro">
+  <text class="columnTit">如何打开：</text>
+  <text>请在“瑞士口腔学院”或“瑞士冲击波e学院”微信平台下方菜单：“一站式咨询”中点击“售后服务”</text>
+
+  <text class="columnTit">如何查询：</text>
+  <text>1. 输入维修设备快递单号后四位以及设备编号后四位（缺一不可）</text>
+  <text>2. 点击“查询”</text>
+
+  <text class="Margin">小程序显示查询结果，包括：</text>
+  <text>ž   客户名称</text>
+  <text>ž   何日签收入系统</text>
+  <text>ž   何日发出报价单</text>
+  <text>ž   何日处理完毕发货</text>
+  <text>ž   发货快递单号</text>
+
+  <image mode="aspectFit" src="https://wxmms.swissems.cn/images/viewfile.jpg" bindtap="previewImage"></image>
+
+   <text bindtap="previewImage" class="tip">(点击查看大图)</text>
+  
+</view>
